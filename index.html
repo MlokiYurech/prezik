@@ -80,8 +80,8 @@
     padding:.6rem 1.2rem;background:rgba(11,19,16,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);}
   .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--white);min-width:0;}
-  .brand .logo{width:2.6rem;height:2.6rem;border-radius:50%;object-fit:cover;flex:0 0 auto;background:var(--turq);
-    display:flex;align-items:center;justify-content:center;color:#04130e;font-weight:900;font-size:1.15rem;overflow:hidden;}
+  .brand .logo{flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:2.6rem;}
+  .brand .logo img{display:block;height:100%;width:auto;max-width:12rem;object-fit:contain;}
   .brand .bname{font-weight:900;font-size:clamp(1rem,2.4vw,1.25rem);letter-spacing:-.01em;white-space:nowrap;}
   .head-switch{display:flex;align-items:center;gap:.6rem;
     background:rgba(17,28,23,.7);border:1px solid var(--line);border-radius:999px;padding:.35rem .5rem;}
@@ -106,10 +106,7 @@
 <!-- Шапка -->
 <header class="site-head">
   <a class="brand" href="#top">
-    <span class="logo">
-      <img src="logo.png" alt="PresMyynya" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <span style="display:none;align-items:center;justify-content:center;width:100%;height:100%;">P</span>
-    </span>
+    <img class="logo" src="logo.png" alt="PresMyynya" onerror="this.style.display='none';">
     <span class="bname">PresMyynya</span>
   </a>
   <div class="head-switch">
