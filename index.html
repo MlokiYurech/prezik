@@ -74,15 +74,55 @@
   .dates{font-weight:900;color:var(--turq);font-size:clamp(1.2rem,3vw,2rem);letter-spacing:.01em;}
   .micro{color:var(--muted);font-size:clamp(.9rem,1.8vw,1.1rem);font-weight:600;line-height:1.5;max-width:54ch;}
 
-  nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;pointer-events:none;}
-  nav button{pointer-events:auto;cursor:pointer;background:rgba(17,28,23,.8);border:1px solid var(--line);border-radius:999px;width:3rem;height:3rem;font-size:1.3rem;color:var(--turq);transition:background .15s;}
-  nav button:hover{background:var(--turq);color:#04130e;}
-  nav .counter{background:rgba(17,28,23,.8);padding:.4rem .95rem;border-radius:999px;font-weight:800;font-size:.85rem;color:var(--muted);border:1px solid var(--line);}
-  @media(max-width:640px){nav{display:none;}}
+  /* ===== ШАПКА ===== */
+  header.site-head{position:fixed;top:0;left:0;right:0;z-index:60;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:.6rem 1.2rem;background:rgba(11,19,16,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);}
+  .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--white);min-width:0;}
+  .brand .logo{width:2.6rem;height:2.6rem;border-radius:50%;object-fit:cover;flex:0 0 auto;background:var(--turq);
+    display:flex;align-items:center;justify-content:center;color:#04130e;font-weight:900;font-size:1.15rem;overflow:hidden;}
+  .brand .bname{font-weight:900;font-size:clamp(1rem,2.4vw,1.25rem);letter-spacing:-.01em;white-space:nowrap;}
+  .head-switch{display:flex;align-items:center;gap:.6rem;
+    background:rgba(17,28,23,.7);border:1px solid var(--line);border-radius:999px;padding:.35rem .5rem;}
+  .head-switch button{pointer-events:auto;cursor:pointer;background:transparent;border:none;border-radius:50%;
+    width:2.1rem;height:2.1rem;font-size:1.1rem;color:var(--turq);transition:background .15s;}
+  .head-switch button:hover{background:rgba(0,217,176,.15);}
+  .head-switch .counter{font-weight:800;font-size:.85rem;color:var(--muted);min-width:3.2rem;text-align:center;}
+  .head-cta{flex:0 0 auto;}
+  .head-cta .btn{padding:.55rem 1.1rem;font-size:clamp(.68rem,1.4vw,.82rem);border-width:1.5px;}
+  @media(max-width:640px){
+    .head-switch{order:3;}
+    .head-cta .btn span{display:none;}
+  }
+
+  nav.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;pointer-events:none;}
+  nav.bottom-nav button{pointer-events:auto;cursor:pointer;background:rgba(17,28,23,.8);border:1px solid var(--line);border-radius:999px;width:3rem;height:3rem;font-size:1.3rem;color:var(--turq);transition:background .15s;}
+  nav.bottom-nav button:hover{background:var(--turq);color:#04130e;}
+  @media(max-width:640px){nav.bottom-nav{display:none;}}
 </style>
 </head>
 <body>
-<div class="stage">
+<!-- Шапка -->
+<header class="site-head">
+  <a class="brand" href="#top">
+    <span class="logo">
+      <img src="logo.png" alt="PresMyynya" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <span style="display:none;align-items:center;justify-content:center;width:100%;height:100%;">P</span>
+    </span>
+    <span class="bname">PresMyynya</span>
+  </a>
+  <div class="head-switch">
+    <button id="headPrev" aria-label="Назад">←</button>
+    <div class="counter" id="headCounter">1 / 4</div>
+    <button id="headNext" aria-label="Вперёд">→</button>
+  </div>
+  <div class="head-cta">
+    <a class="btn solid" href="pismo.html"><span>Написать мне</span> ✉</a>
+  </div>
+</header>
+
+<div class="stage" id="top">
   <!-- 1. Титул -->
   <section>
     <div class="grid-bg"></div>
@@ -107,7 +147,7 @@
       <div class="eyebrow">моя программа</div>
       <h2>Четыре дела за <span class="hl">полугодие</span></h2>
       <div class="cards">
-        <div class="card"><div class="num">1</div><h3>Безопасная школа</h3><p>Понятный способ анонимно сообщить о буллинге. Если буллинг приводит к порче имущества/травмам, обидчик будет наказан и поставлен на учёт, безусловно.</p></div>
+        <div class="card"><div class="num">1</div><h3>Безопасная школа</h3><p>Понятный способ анонимно сообщить о буллинге. Если буллинг приводит к порче имущества/травмам, обидчик будет наказан и поставлен на учёт.</p></div>
         <div class="card"><div class="num">2</div><h3>Твой голос услышет директор</h3><p>Соберу письма и предложения учеников и донесу их до Управляющего совета. Раз в месяц будет отчёт: что приняли, что нет и почему.</p></div>
         <div class="card"><div class="num">3</div><h3>Яркие события</h3><p>2–3 события за полугодие, которые придумают сами ученики: день самоуправления, квиз, тематические пятницы.</p></div>
         <div class="card"><div class="num">4</div><h3>Активные перемены</h3><p>Подниму вопрос и добьюсь, чтобы ввели активные перемены. Дети смогут играть на улице или в спорт зале, в спрот. игры.</p></div>
@@ -149,7 +189,7 @@
   </section>
 </div>
 
-<nav>
+<nav class="bottom-nav">
   <button id="prev" aria-label="Назад">←</button>
   <div class="counter" id="counter">1 / 4</div>
   <button id="next" aria-label="Вперёд">→</button>
@@ -157,14 +197,20 @@
 
 <script>
   const slides=Array.from(document.querySelectorAll('section'));
-  const counter=document.getElementById('counter');
+  const counters=[document.getElementById('counter'),document.getElementById('headCounter')];
   let cur=0;
+  const syncCounter=()=>{counters.forEach(c=>{c.textContent=(cur+1)+' / '+slides.length;});};
   const go=function(i){
     cur=Math.max(0,Math.min(slides.length-1,i));
     slides[cur].scrollIntoView({behavior:'smooth'});
+    syncCounter();
   };
-  document.getElementById('prev').onclick=()=>go(cur-1);
-  document.getElementById('next').onclick=()=>go(cur+1);
+  const prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next');
+  const headPrev=document.getElementById('headPrev'),headNext=document.getElementById('headNext');
+  if(prevBtn)prevBtn.onclick=()=>go(cur-1);
+  if(nextBtn)nextBtn.onclick=()=>go(cur+1);
+  if(headPrev)headPrev.onclick=()=>go(cur-1);
+  if(headNext)headNext.onclick=()=>go(cur+1);
   window.addEventListener('keydown',e=>{
     if(e.key==='ArrowRight'||e.key==='PageDown')go(cur+1);
     if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);
@@ -172,7 +218,7 @@
   window.addEventListener('scroll',()=>{
     let best=0,bestD=1e9;
     slides.forEach((s,i)=>{const d=Math.abs(s.getBoundingClientRect().top);if(d<bestD){bestD=d;best=i;}});
-    if(best!==cur){cur=best;counter.textContent=(cur+1)+' / '+slides.length;}
+    if(best!==cur){cur=best;syncCounter();}
   });
 </script>
 </body>
