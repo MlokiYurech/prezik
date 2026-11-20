@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мыйня Марк — Президент школы 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --turq:#00D9B0;
+    --turq-soft:#7FE8D6;
+    --turq-deep:#00A688;
+    --ink:#0B1310;
+    --navy:#101A16;
+    --line:#1E2E27;
+    --white:#F2FFF9;
+    --muted:#9FB6AC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-padding-top:0;-webkit-text-size-adjust:100%;}
+  body{font-family:'Manrope',ui-sans-serif,system-ui,sans-serif;color:var(--white);background:var(--ink);overflow-x:hidden;}
+  .stage{background:
+    radial-gradient(120% 90% at 85% -10%, rgba(0,217,176,.14) 0%, transparent 55%),
+    radial-gradient(100% 90% at -10% 110%, rgba(0,217,176,.08) 0%, transparent 55%),
+    var(--ink);}
+  .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(rgba(0,217,176,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,217,176,.05) 1px,transparent 1px);
+    background-size:56px 56px;}
+  section{min-height:100dvh;width:100%;display:flex;flex-direction:column;align-items:center;padding:clamp(4rem,8vh,6rem) clamp(1.2rem,6vw,6rem);position:relative;text-align:center;box-sizing:border-box;overflow-x:clip;}
+  section:first-child{padding-top:0;}
+  section .wrap{margin:auto 0;}
+  section:not(:last-child){border-bottom:1px solid var(--line);}
+  .orb{position:absolute;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle at 35% 30%, rgba(0,217,176,.32), rgba(0,217,176,.05) 60%, transparent 72%);}
+  .orb.tl{width:52vw;height:52vw;top:-24vw;left:-16vw;}
+  .orb.br{width:38vw;height:38vw;bottom:-16vw;right:-12vw;opacity:.7;}
+  .wrap{position:relative;z-index:2;width:min(1120px,100%);display:flex;flex-direction:column;align-items:center;}
+  .eyebrow{font-size:clamp(.7rem,1.4vw,.9rem);letter-spacing:.24em;text-transform:uppercase;color:var(--turq-soft);font-weight:800;margin-bottom:clamp(1rem,2.4vh,1.6rem);}
+  h1{font-weight:900;line-height:1.03;letter-spacing:-.02em;font-size:clamp(2rem,6.4vw,4.6rem);color:var(--white);}
+  h2{font-weight:900;line-height:1.05;letter-spacing:-.02em;font-size:clamp(1.6rem,4.4vw,3.2rem);color:var(--white);margin-bottom:clamp(1rem,2.4vh,1.4rem);}
+  .hl{color:var(--turq);}
+  .lead{font-size:clamp(.95rem,2vw,1.3rem);color:var(--muted);max-width:54ch;line-height:1.45;margin-top:clamp(.9rem,2vh,1.3rem);}
+  /* кнопки в духе «Новых людей» — капс + обводка/заливка */
+  .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.8rem;border-radius:999px;font-weight:800;
+    font-size:clamp(.78rem,1.5vw,1rem);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+    border:2px solid var(--white);color:var(--white);transition:all .18s ease;cursor:pointer;background:transparent;}
+  .btn:hover{background:var(--white);color:var(--ink);}
+  .btn.solid{background:var(--turq);border-color:var(--turq);color:#04130e;}
+  .btn.solid:hover{background:var(--turq-soft);border-color:var(--turq-soft);color:#04130e;}
+
+  .name-line{display:flex;align-items:center;gap:1rem;justify-content:center;margin-top:clamp(1.2rem,3vh,2.1rem);}
+  .init{width:clamp(3rem,5.5vw,4.2rem);height:clamp(3rem,5.5vw,4.2rem);background:var(--turq);color:#04130e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:clamp(1.2rem,2.3vw,1.7rem);flex:0 0 auto;}
+  .who{text-align:left;line-height:1.25;}
+  .who b{font-weight:900;font-size:clamp(1.1rem,2vw,1.5rem);display:block;}
+  .who span{color:var(--muted);font-weight:600;font-size:clamp(.88rem,1.6vw,1.05rem);}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(.9rem,2vw,1.4rem);width:100%;margin-top:clamp(1.3rem,3vh,2.2rem);}
+  .card{background:linear-gradient(180deg,rgba(17,28,23,.92),rgba(11,19,16,.95));border:1px solid var(--line);border-radius:20px;padding:clamp(1.2rem,2.6vh,1.7rem);text-align:left;transition:transform .2s,border-color .2s;}
+  .card:hover{transform:translateY(-3px);border-color:var(--turq-deep);}
+  .card .num{width:2.5rem;height:2.5rem;border-radius:50%;background:var(--turq);color:#04130e;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.05rem;margin-bottom:.8rem;}
+  .card h3{font-size:1.05rem;font-weight:800;margin-bottom:.4rem;line-height:1.2;}
+  .card p{font-size:.9rem;color:var(--muted);line-height:1.5;}
+
+  .steps{list-style:none;width:min(760px,100%);margin-top:clamp(1.3rem,3vh,2.2rem);text-align:left;}
+  .steps li{display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px solid var(--line);font-size:clamp(.95rem,1.9vw,1.15rem);line-height:1.4;}
+  .steps li:last-child{border-bottom:none;}
+  .steps .dot{flex:0 0 1rem;width:1rem;height:1rem;border-radius:50%;background:var(--turq);margin-top:.35rem;box-shadow:0 0 14px rgba(0,217,176,.5);}
+  .steps b{color:var(--white);}
+
+  .cta{display:flex;flex-direction:column;align-items:center;gap:clamp(1rem,3vh,1.8rem);}
+  .dates{font-weight:900;color:var(--turq);font-size:clamp(1.2rem,3vw,2rem);letter-spacing:.01em;}
+  .micro{color:var(--muted);font-size:clamp(.9rem,1.8vw,1.1rem);font-weight:600;line-height:1.5;max-width:54ch;}
+
+  nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;pointer-events:none;}
+  nav button{pointer-events:auto;cursor:pointer;background:rgba(17,28,23,.8);border:1px solid var(--line);border-radius:999px;width:3rem;height:3rem;font-size:1.3rem;color:var(--turq);transition:background .15s;}
+  nav button:hover{background:var(--turq);color:#04130e;}
+  nav .counter{background:rgba(17,28,23,.8);padding:.4rem .95rem;border-radius:999px;font-weight:800;font-size:.85rem;color:var(--muted);border:1px solid var(--line);}
+  @media(max-width:640px){nav{display:none;}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <!-- 1. Титул -->
+  <section>
+    <div class="grid-bg"></div>
+    <div class="orb tl"></div>
+    <div class="wrap">
+      <div class="eyebrow">Выборы Президента Исовской школы · 2026</div>
+      <h1>Школа без страха,<br>школа с порядком</h1>
+      <p class="lead">Слышим каждого — делаем вместе.</p>
+      <div class="name-line">
+        <div class="init">ММ</div>
+        <div class="who"><b>Мыйня Марк</b><span>Кандидат · 9А</span></div>
+      </div>
+      <a class="btn solid" onclick="go(1)" style="margin-top:clamp(1.4rem,4vh,2.4rem);">Моя программа</a>
+    </div>
+  </section>
+
+  <!-- 2. Программа -->
+  <section>
+    <div class="grid-bg"></div>
+    <div class="orb br"></div>
+    <div class="wrap">
+      <div class="eyebrow">Моя программа</div>
+      <h2>Четыре дела — за <span class="hl">полугодие</span></h2>
+      <div class="cards">
+        <div class="card"><div class="num">1</div><h3>Безопасная школа</h3><p>Понятный способ анонимно сообщить о буллинге. Встречи «совет класса + президент» раз в две недели — пока конфликт маленький.</p></div>
+        <div class="card"><div class="num">2</div><h3>Твой голос — до директора</h3><p>Соберу письма и предложения учеников и донесу их до Управляющего совета. Раз в месяц — отчёт: что приняли, что нет и почему.</p></div>
+        <div class="card"><div class="num">3</div><h3>Живая школа</h3><p>2–3 события за полугодие, которые придумают сами ученики: день самоуправления, квиз, тематические пятницы.</p></div>
+        <div class="card"><div class="num">4</div><h3>Спорт и перемены</h3><p>Инвентарь своими руками не куплю — но подниму вопрос и добьюсь, чтобы его ввели. Правила, чтобы было и интересно, и безопасно.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Фишка: напиши мне -->
+  <section>
+    <div class="grid-bg"></div>
+    <div class="orb tl" style="opacity:.7"></div>
+    <div class="wrap">
+      <div class="eyebrow">Моя фишка кампании</div>
+      <h2>Напиши мне — <span class="hl">я донесу</span></h2>
+      <ul class="steps">
+        <li><span class="dot"></span><b>Пишешь мне письмо</b> — имя, класс и пара строк. Можно приложить фото.</li>
+        <li><span class="dot"></span><b>Я всё собираю</b> и передаю директору и Управляющему совету.</li>
+        <li><span class="dot"></span><b>Раз в месяц — отчёт на стенде:</b> что приняли, что нет и почему.</li>
+        <li><span class="dot"></span><b>Идеи — твои.</b> Ответственность и контроль — на мне.</li>
+      </ul>
+      <a class="btn solid" href="napishi-prezidentu.html" style="margin-top:clamp(1.4rem,4vh,2.4rem);">Написать мне</a>
+    </div>
+  </section>
+
+  <!-- 4. Призыв -->
+  <section>
+    <div class="grid-bg"></div>
+    <div class="orb br"></div>
+    <div class="wrap">
+      <div class="eyebrow">Голосование</div>
+      <h2>Приходи и <span class="hl">голосуй</span></h2>
+      <p class="lead">Не говорю, что изменю всё за один день. Говорю: начнём с четырёх дел — и проверим результат вместе.</p>
+      <div class="cta">
+        <div class="dates">10 и 11 декабря · с 08:00 до 15:00</div>
+        <p class="micro">Твой голос важен — будь ты учитель или ученик в 5, 6, 7, 8 или 9 классе.<br>Голосование тайное, бумажные бюллетени.</p>
+        <a class="btn" href="napishi-prezidentu.html">Написать мне</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<nav>
+  <button id="prev" aria-label="Назад">←</button>
+  <div class="counter" id="counter">1 / 4</div>
+  <button id="next" aria-label="Вперёд">→</button>
+</nav>
+
+<script>
+  const slides=Array.from(document.querySelectorAll('section'));
+  const counter=document.getElementById('counter');
+  let cur=0;
+  const go=function(i){
+    cur=Math.max(0,Math.min(slides.length-1,i));
+    slides[cur].scrollIntoView({behavior:'smooth'});
+  };
+  document.getElementById('prev').onclick=()=>go(cur-1);
+  document.getElementById('next').onclick=()=>go(cur+1);
+  window.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown')go(cur+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);
+  });
+  window.addEventListener('scroll',()=>{
+    let best=0,bestD=1e9;
+    slides.forEach((s,i)=>{const d=Math.abs(s.getBoundingClientRect().top);if(d<bestD){bestD=d;best=i;}});
+    if(best!==cur){cur=best;counter.textContent=(cur+1)+' / '+slides.length;}
+  });
+</script>
+</body>
+</html>

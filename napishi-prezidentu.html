@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Напиши президенту — Мыйня Марк</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --turq:#00D9B0;
+    --turq-soft:#7FE8D6;
+    --turq-deep:#00A688;
+    --ink:#0B1310;
+    --navy:#101A16;
+    --line:#1E2E27;
+    --white:#F2FFF9;
+    --muted:#9FB6AC;
+    --err:#FF6B5E;
+    --ok:#5BDB93;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Manrope',ui-sans-serif,system-ui,sans-serif;color:var(--white);background:var(--ink);min-height:100vh;background:
+    radial-gradient(100% 80% at 90% -10%, rgba(0,217,176,.14) 0%, transparent 55%),
+    radial-gradient(100% 90% at -10% 110%, rgba(0,217,176,.08) 0%, transparent 55%),
+    var(--ink);}
+  .grid-bg{position:fixed;inset:0;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(0,217,176,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,217,176,.05) 1px,transparent 1px);background-size:56px 56px;}
+  .wrap{width:min(640px,100%);position:relative;z-index:2;margin:0 auto;padding:clamp(2rem,6vh,4rem) clamp(1.2rem,4vw,2rem);}
+  .back{display:inline-flex;align-items:center;gap:.5rem;color:var(--muted);text-decoration:none;font-weight:700;font-size:.9rem;margin-bottom:1.5rem;transition:color .15s;}
+  .back:hover{color:var(--turq);}
+  .eyebrow{font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;color:var(--turq-soft);font-weight:800;margin-bottom:1rem;text-align:center;}
+  h1{font-size:clamp(1.7rem,5vw,2.7rem);font-weight:900;letter-spacing:-.02em;text-align:center;line-height:1.05;}
+  h1 .hl{color:var(--turq);}
+  .sub{color:var(--muted);text-align:center;margin:1rem auto 0;max-width:48ch;line-height:1.5;font-size:1.02rem;}
+  .card{background:linear-gradient(180deg,rgba(17,28,23,.92),rgba(11,19,16,.95));border:1px solid var(--line);border-radius:24px;padding:clamp(1.4rem,4vw,2.3rem);margin-top:2rem;box-shadow:0 24px 60px rgba(0,0,0,.4);}
+  form{display:flex;flex-direction:column;gap:1.1rem;}
+  .field{display:flex;flex-direction:column;gap:.45rem;}
+  .field label{font-weight:800;font-size:.92rem;}
+  .req{color:var(--turq);}
+  input,textarea{background:#0B1310;border:1px solid var(--line);border-radius:14px;padding:.9rem 1.05rem;color:var(--white);font-family:inherit;font-size:1rem;transition:border-color .15s,box-shadow .15s;}
+  input:focus,textarea:focus{outline:none;border-color:var(--turq);box-shadow:0 0 0 3px rgba(0,217,176,.15);}
+  textarea{resize:vertical;min-height:130px;line-height:1.5;}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .note{background:rgba(0,217,176,.08);border:1px solid rgba(0,217,176,.25);border-radius:12px;padding:.8rem 1rem;font-size:.9rem;color:var(--turq-soft);line-height:1.5;}
+  .consent{display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem;color:var(--muted);line-height:1.45;}
+  .consent input[type=checkbox]{margin-top:.15rem;accent-color:var(--turq);width:1.1rem;height:1.1rem;flex:0 0 auto;}
+  .consent b{color:var(--white);}
+  button[type=submit]{background:var(--turq);color:#04130e;border:none;border-radius:16px;padding:1rem;font-family:inherit;font-weight:900;font-size:1.05rem;cursor:pointer;transition:transform .12s,background .15s,box-shadow .15s;text-align:center;}
+  button[type=submit]:hover{background:var(--turq-soft);transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,217,176,.25);}
+  button[type=submit]:disabled{opacity:.55;cursor:progress;transform:none;}
+  .hint{font-size:.8rem;color:#5E7669;text-align:center;margin-top:1.1rem;line-height:1.5;}
+  .alert{display:none;border-radius:12px;padding:.85rem 1rem;font-size:.9rem;font-weight:600;line-height:1.45;margin-bottom:1rem;}
+  .alert.err{background:rgba(255,107,94,.12);border:1px solid var(--err);color:var(--err);}
+  .alert.ok{background:rgba(91,219,147,.12);border:1px solid var(--ok);color:var(--ok);}
+  .spinner{display:none;align-items:center;justify-content:center;gap:.6rem;}
+  .spinner.show{display:flex;}
+  .spinner .ring{width:1.1rem;height:1.1rem;border:2px solid rgba(4,19,14,.3);border-top-color:#04130e;border-radius:50%;animation:spin .8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media(max-width:520px){.row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+  <a class="back" href="prezident-prez.html">← К программе</a>
+  <div class="eyebrow">Исовская школа · Выборы 2026</div>
+  <h1>Напиши <span class="hl">президенту</span></h1>
+  <p class="sub">Идея, вопрос, жалоба или пожелание — напиши мне. Письмо улетит прямо мне на почту, я передам его директору и Управляющему совету.</p>
+
+  <div class="card">
+    <div class="alert err" id="errorbox"></div>
+    <div class="alert ok" id="okbox"></div>
+
+    <!-- Письмо отправится автоматически через твой Google Apps Script.
+         Скрипт шлёт с аккаунта mlokinone@gmail.com на kikolkin@yandex.ru. -->
+    <form id="letterform">
+      <!-- ⬇ ЗАМЕНИ ЗНАЧЕНИЕ APPS_SCRIPT_URL на адрес, который получишь при развёртывании -->
+      <input type="hidden" id="script_url" value="https://script.google.com/macros/s/AKfycbw0O0jkJDHjgar-2yhiH1tfvc5v7Qpo2urzWmNRNSQMfYn3W3IVmVuzx-XcPWAVzLzQ0Q/exec">
+
+      <div class="row">
+        <div class="field">
+          <label>Твоё имя <span class="req">*</span></label>
+          <input type="text" id="name" placeholder="Как тебя зовут?">
+        </div>
+        <div class="field">
+          <label>Класс <span class="req">*</span></label>
+          <input type="text" id="class" placeholder="Например, 7Б">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Твоё письмо <span class="req">*</span></label>
+        <textarea id="msg" placeholder="Напиши, что хочешь изменить в школе, что тебя беспокоит или какую идею предлагаешь…"></textarea>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="consent">
+        <span>Согласен(на), что моё письмо будет передано директору и Управляющему совету. <b>Имя и класс — обязательны.</b></span>
+      </label>
+
+      <button type="submit" id="submit">
+        <span class="spinner" id="spinner"><span class="ring"></span>Отправляем…</span>
+        <span id="btnlabel">Отправить письмо</span>
+      </button>
+      <p class="hint">Письмо прилетит мне автоматически. Если что-то срочное — напиши ещё раз или найди в школе.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+  const TO_EMAIL='kikolkin@yandex.ru';
+  // URL твоего Google Apps Script (заменится после развёртывания)
+  const APPS_SCRIPT_URL=document.getElementById('script_url').value;
+
+  const form=document.getElementById('letterform');
+  const errorbox=document.getElementById('errorbox');
+  const okbox=document.getElementById('okbox');
+  const name=document.getElementById('name');
+  const cls=document.getElementById('class');
+  const msg=document.getElementById('msg');
+  const consent=document.getElementById('consent');
+  const submit=document.getElementById('submit');
+  const spinner=document.getElementById('spinner');
+  const btnlabel=document.getElementById('btnlabel');
+
+  function showError(t){okbox.style.display='none';errorbox.textContent=t;errorbox.style.display='block';}
+  function showOk(t){errorbox.style.display='none';okbox.textContent=t;okbox.style.display='block';}
+  function setBusy(b){submit.disabled=b;spinner.classList.toggle('show',b);btnlabel.style.display=b?'none':'inline';}
+
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    errorbox.style.display='none';okbox.style.display='none';
+
+    const n=name.value.trim();
+    const c=cls.value.trim();
+    const m=msg.value.trim();
+    if(!n||!c){showError('Пожалуйста, напиши имя и класс — они обязательны.');return;}
+    if(!m){showError('Поле письма пустое — расскажи, что хочешь донести.');return;}
+    if(!consent.checked){showError('Отметь согласие — без него письмо не отправится.');return;}
+    if(!APPS_SCRIPT_URL||APPS_SCRIPT_URL.indexOf('ВСТАВЬ_URL')===0){
+      showError('Отправка ещё не включена. Скажи Марку, что нужно развернуть форму (см. инструкцию).');return;
+    }
+
+    setBusy(true);
+    try{
+      const resp=await fetch(APPS_SCRIPT_URL,{
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify({name:n, klas:c, msg:m, consent:consent.checked})
+      });
+      const data=await resp.json();
+      if(data && data.ok===true){
+        form.reset();
+        showOk(data.message||'Письмо отправлено президенту!');
+      } else {
+        showError((data&&data.error)||'Не получилось отправить. Попробуй ещё раз.');
+      }
+    }catch(err){
+      showError('Не удалось отправить. Проверь интернет и попробуй ещё раз.');
+    }finally{
+      setBusy(false);
+    }
+  });
+</script>
+</body>
+</html>
