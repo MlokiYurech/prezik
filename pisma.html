@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Напиши президенту — Мыйня Марк</title>
+<title>Напиши нам</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -63,10 +63,10 @@
 <body>
 <div class="grid-bg"></div>
 <div class="wrap">
-  <a class="back" href="prezident-prez.html">← К программе</a>
+  <a class="back" href="index.html">← К программе</a>
   <div class="eyebrow">Исовская школа · Выборы 2026</div>
   <h1>Напиши <span class="hl">президенту</span></h1>
-  <p class="sub">Идея, вопрос, жалоба или пожелание — напиши мне. Письмо улетит прямо мне на почту, я передам его директору и Управляющему совету.</p>
+  <p class="sub">Идея, вопрос, жалоба или пожелание. Письмо улетит прямо мне на почту, я передам его директору и Управляющему совета.</p>
 
   <div class="card">
     <div class="alert err" id="errorbox"></div>
@@ -80,7 +80,7 @@
 
       <div class="row">
         <div class="field">
-          <label>Твоё имя <span class="req">*</span></label>
+          <label>Твоё ФИ <span class="req">*</span></label>
           <input type="text" id="name" placeholder="Как тебя зовут?">
         </div>
         <div class="field">
@@ -96,7 +96,7 @@
 
       <label class="consent">
         <input type="checkbox" id="consent">
-        <span>Согласен(на), что моё письмо будет передано директору и Управляющему совету. <b>Имя и класс — обязательны.</b></span>
+        <span>Согласен(на), что моё письмо будет передано директору и Управляющему совета.</span>
       </label>
 
       <button type="submit" id="submit">
@@ -136,7 +136,7 @@
     const c=cls.value.trim();
     const m=msg.value.trim();
     if(!n||!c){showError('Пожалуйста, напиши имя и класс — они обязательны.');return;}
-    if(!m){showError('Поле письма пустое — расскажи, что хочешь донести.');return;}
+    if(!m){showError('Письмо то напиши');return;}
     if(!consent.checked){showError('Отметь согласие — без него письмо не отправится.');return;}
     if(!APPS_SCRIPT_URL||APPS_SCRIPT_URL.indexOf('ВСТАВЬ_URL')===0){
       showError('Отправка ещё не включена. Скажи Марку, что нужно развернуть форму (см. инструкцию).');return;
@@ -152,7 +152,7 @@
       const data=await resp.json();
       if(data && data.ok===true){
         form.reset();
-        showOk(data.message||'Письмо отправлено президенту!');
+        showOk(data.message||'Письмо отправлено!');
       } else {
         showError((data&&data.error)||'Не получилось отправить. Попробуй ещё раз.');
       }
