@@ -91,15 +91,36 @@
   .head-switch .counter{font-weight:800;font-size:.85rem;color:var(--muted);min-width:3.2rem;text-align:center;}
   .head-cta{flex:0 0 auto;}
   .head-cta .btn{padding:.55rem 1.1rem;font-size:clamp(.68rem,1.4vw,.82rem);border-width:1.5px;}
-  @media(max-width:640px){
-    .head-switch{order:3;}
-    .head-cta .btn span{display:none;}
-  }
+  /* центр шапки */
+  .head-switch{display:flex;align-items:center;gap:.6rem;
+    background:rgba(17,28,23,.7);border:1px solid var(--line);border-radius:999px;padding:.35rem .5rem;}
+  .head-switch button{pointer-events:auto;cursor:pointer;background:transparent;border:none;border-radius:50%;
+    width:2.1rem;height:2.1rem;font-size:1.1rem;color:var(--turq);transition:background .15s;}
+  .head-switch button:hover{background:rgba(0,217,176,.15);}
+  .head-switch .counter{font-weight:800;font-size:.85rem;color:var(--muted);min-width:3.2rem;text-align:center;}
+  .head-cta{flex:0 0 auto;}
+  .head-cta .btn{padding:.55rem 1.1rem;font-size:clamp(.68rem,1.4vw,.82rem);border-width:1.5px;}
+
+  /* вертикальная навигация у правого края — только мобилка */
+  nav.side-nav{position:fixed;right:.7rem;top:50%;transform:translateY(-50%);z-index:55;
+    display:none;flex-direction:column;align-items:center;gap:.55rem;
+    background:rgba(17,28,23,.75);border:1px solid var(--line);border-radius:999px;padding:.5rem .5rem;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+  nav.side-nav button{cursor:pointer;background:transparent;border:none;border-radius:50%;
+    width:2.2rem;height:2.2rem;font-size:1.15rem;color:var(--turq);transition:background .15s;}
+  nav.side-nav button:hover{background:rgba(0,217,176,.15);}
+  nav.side-nav .nums{display:flex;flex-direction:column;align-items:center;line-height:1;margin:.1rem 1.1rem;}
+  nav.side-nav .cur{font-weight:900;font-size:1.1rem;color:var(--white);}
+  nav.side-nav .tot{font-weight:700;font-size:.72rem;color:var(--muted);opacity:.55;margin-top:.3rem;}
 
   nav.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;pointer-events:none;}
   nav.bottom-nav button{pointer-events:auto;cursor:pointer;background:rgba(17,28,23,.8);border:1px solid var(--line);border-radius:999px;width:3rem;height:3rem;font-size:1.3rem;color:var(--turq);transition:background .15s;}
   nav.bottom-nav button:hover{background:var(--turq);color:#04130e;}
-  @media(max-width:640px){nav.bottom-nav{display:none;}}
+  @media(max-width:640px){
+    .head-switch{display:none;}
+    .head-cta .btn span{display:none;}
+    nav.side-nav{display:flex;}
+    nav.bottom-nav{display:none;}
+  }
 </style>
 </head>
 <body>
@@ -186,15 +207,31 @@
   </section>
 </div>
 
+<nav class="side-nav" id="sideNav">
+  <button id="sideUp" aria-label="Вверх">↑</button>
+  <div class="nums">
+    <span class="cur" id="sideCur">1</span>
+    <span class="tot" id="sideTot">4</span>
+  </div>
+  <button id="sideDown" aria-label="Вниз">↓</button>
+</nav>
+
 <nav class="bottom-nav">
+  <button id="prev" aria-label="Назад">←</button>
   <div class="counter" id="counter">1 / 4</div>
+  <button id="next" aria-label="Вперёд">→</button>
 </nav>
 
 <script>
   const slides=Array.from(document.querySelectorAll('section'));
   const counters=[document.getElementById('counter'),document.getElementById('headCounter')];
+  const sideCur=document.getElementById('sideCur'),sideTot=document.getElementById('sideTot');
+  if(sideTot)sideTot.textContent=slides.length;
   let cur=0;
-  const syncCounter=()=>{counters.forEach(c=>{c.textContent=(cur+1)+' / '+slides.length;});};
+  const syncCounter=()=>{
+    counters.forEach(c=>{c.textContent=(cur+1)+' / '+slides.length;});
+    if(sideCur)sideCur.textContent=cur+1;
+  };
   const go=function(i){
     cur=Math.max(0,Math.min(slides.length-1,i));
     slides[cur].scrollIntoView({behavior:'smooth'});
@@ -202,10 +239,13 @@
   };
   const prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next');
   const headPrev=document.getElementById('headPrev'),headNext=document.getElementById('headNext');
+  const sideUp=document.getElementById('sideUp'),sideDown=document.getElementById('sideDown');
   if(prevBtn)prevBtn.onclick=()=>go(cur-1);
   if(nextBtn)nextBtn.onclick=()=>go(cur+1);
   if(headPrev)headPrev.onclick=()=>go(cur-1);
   if(headNext)headNext.onclick=()=>go(cur+1);
+  if(sideUp)sideUp.onclick=()=>go(cur-1);
+  if(sideDown)sideDown.onclick=()=>go(cur+1);
   window.addEventListener('keydown',e=>{
     if(e.key==='ArrowRight'||e.key==='PageDown')go(cur+1);
     if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);
